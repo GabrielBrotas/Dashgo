@@ -72,7 +72,7 @@ export default function Dashboard() {
                 {/* o minChildWidht vai fazer com que se o elemento ter menos de 320px de largura vai jogar ele para baixo, deixando responsivo */}
                 <SimpleGrid flex="1" gap="4" minChildWidth="320px" align="flex-start">
                     <Box
-                        p="8"
+                        p={["6", "8"]}
                         bg="gray.800"
                         pb="4"
                         borderRadius={8}
@@ -81,7 +81,7 @@ export default function Dashboard() {
                         <Chart type="area" height={160} options={options} series={series} />
                     </Box>
                     <Box
-                        p="8"
+                        p={["6", "8"]}
                         bg="gray.800"
                         pb="4"
                         borderRadius={8}

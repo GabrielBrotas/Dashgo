@@ -1,13 +1,24 @@
 
 import React from 'react';
-import { Flex } from '@chakra-ui/react';
+import { Flex, Icon, IconButton, useBreakpointValue } from '@chakra-ui/react';
 
 import { Logo } from './Logo';
 import { NotificationsNav } from './NotificationsNav';
 import { Profile } from './Profile';
 import { SearchBar } from './SearchBar';
+import { useSidebarDrawer } from '../../contexts/SidebarDrawerContext';
+import { RiMenuLine } from 'react-icons/ri';
 
 export function Header() {
+  const {onOpen} = useSidebarDrawer();
+  
+  // no mobile vai ser false, no large vai ser true, para mostrar o nome e email do usuario
+  const mobileView = useBreakpointValue({
+    base: true,
+    lg: false
+  })
+
+
   return (
     <Flex
         as="header"
@@ -19,9 +30,20 @@ export function Header() {
         px="6"
         align="center"
     >
+        {mobileView && (
+          <IconButton
+            icon={<Icon as={RiMenuLine} />}
+            fontSize="24"
+            variant="unstyled"
+         
+            onClick={onOpen}
+            aria-label="Open navigation"
+          />
+        )}
       <Logo />
 
-      <SearchBar />
+      {!mobileView && <SearchBar />}
+      
     
       <Flex
         align="center"
@@ -29,7 +51,7 @@ export function Header() {
       >
         <NotificationsNav />
 
-        <Profile />
+        <Profile mobileView={mobileView} />
       </Flex>
     </Flex>
   )

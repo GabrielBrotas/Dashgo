@@ -1,11 +1,16 @@
 import React from "react";
-import { Box, Button, Checkbox, Flex, Heading, Icon, Table, Tbody, Td, Th, Thead, Tr, Text } from "@chakra-ui/react";
+import { Box, Button, Checkbox, Flex, Heading, Icon, Table, Tbody, Td, Th, Thead, Tr, Text, useBreakpointValue } from "@chakra-ui/react";
 import { Header } from "../../components/Header";
 import { Sidebar } from "../../components/Sidebar";
-import { RiAddLine } from "react-icons/ri";
+import { RiAddLine, RiPencilLine } from "react-icons/ri";
 import { Pagination } from "../../components/Pagination";
+import Link from "next/link";
 
 export default function UserList() {
+    const mobileView = useBreakpointValue({
+        base: true,
+        lg: false
+    })
     return (
         <Box>
             <Header />
@@ -17,27 +22,33 @@ export default function UserList() {
                     <Flex mb="8" justify="space-between" align="center">
                         <Heading size="lg" fontWeight="normal">Usuarios</Heading>
 
-                        <Button
-                          as="a"
-                          size="sm"
-                          fontSize="sm"
-                          colorScheme="pink"
-                          leftIcon={<Icon as={RiAddLine} fontSize="20"/>}
-                          >
-                          Criar
-                          novo
-                        </Button>
+                        <Link href="/users/create" passHref>
+                            <Button
+                            as="a"
+                            size="sm"
+                            fontSize="sm"
+                            colorScheme="pink"
+                            leftIcon={<Icon as={RiAddLine} fontSize="20"/>}
+                            >
+                            Criar
+                            novo
+                            </Button>
+                        </Link>
                     </Flex>
                
                     <Table colorScheme="whiteAlpha">
                         <Thead>
                             <Tr>
-                                <Th px="6" color="gray.300" width="8">
+                                <Th px={["4", "4", "6"]} color="gray.300" width="8">
                                     <Checkbox colorScheme="pink" />
                                 </Th>
                                 <Th>Usuário</Th>
-                                <Th>Data de cadastro</Th>
-                                <Th></Th>
+                                {!mobileView && (
+                                <>
+                                    <Th>Data de cadastro</Th>
+                                    <Th></Th>
+                                </>
+                                )}
                             </Tr>
                         </Thead>
 
@@ -52,19 +63,22 @@ export default function UserList() {
                                         <Text fontSize="sm">gabrielbrotas22@gmail.com</Text>
                                     </Box>
                                 </Td>
-                                <Td>01 de abril, 2021</Td>
-                                <Td>
-                                <Button
-                                    as="a"
-                                    size="sm"
-                                    fontSize="sm"
-                                    colorScheme="purple"
-                                    leftIcon={<Icon as={RiAddLine} fontSize="16" />}
-                                >
-                                    Criar
-                                    novo
-                                </Button>
-                                </Td>
+                                {!mobileView && (
+                                <>
+                                    <Td>01 de abril, 2021</Td>
+                                    <Td>
+                                        <Button
+                                            as="a"
+                                            size="sm"
+                                            fontSize="sm"
+                                            colorScheme="purple"
+                                            leftIcon={<Icon as={RiPencilLine} fontSize="16"/>}
+                                        >
+                                            Editar
+                                        </Button>
+                                    </Td>
+                                </>
+                                )}
                             </Tr>
                         </Tbody>
                     </Table>
